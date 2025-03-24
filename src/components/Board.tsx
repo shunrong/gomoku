@@ -202,6 +202,20 @@ const useStyles = createStyles(({ css }) => ({
     padding: 10px 0;
     text-align: center;
   `,
+  piece: {
+    position: 'relative',
+    width: '100%',
+    height: '100%',
+    borderRadius: '50%',
+    transformStyle: 'preserve-3d',
+  },
+  pieceInner: {
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+    borderRadius: '50%',
+    opacity: 0.7,
+  },
 }));
 
 // 判断是否为星位点或天元
@@ -323,11 +337,12 @@ const Board: React.FC<BoardProps> = ({ boardSize, board, onPlacePiece }) => {
         >
           {board[row][col] && (
             <div className={styles.pieceContainer}>
-              <div className={
-                board[row][col] === PieceColor.BLACK
-                  ? styles.blackPiece
-                  : styles.whitePiece
-              } />
+              <div 
+                className={`${styles.piece} ${board[row][col] === PieceColor.BLACK ? styles.blackPiece : styles.whitePiece}`}
+                data-testid={board[row][col] === PieceColor.BLACK ? 'black-piece' : 'white-piece'}
+              >
+                <div className={styles.pieceInner} />
+              </div>
             </div>
           )}
         </div>
